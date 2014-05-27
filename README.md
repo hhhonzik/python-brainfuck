@@ -1,15 +1,17 @@
 # brainfuck
 
 ---
+
 Brainfuck/Brainloller/Braincopter programming language interpreter.
 Requires python2.7 or higher.
+
 ---
 
-
 ## installation
-## <a name="code"></a> Example 1
 
 Close this [repository](http://github.com/hhhonzik/python-brainfuck) or download [ZIP](http://github.com/hhhonzik/python-brainfuck/archive/master.zip)
+
+---
 
 
 ## Documentation
