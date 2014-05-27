@@ -7,7 +7,7 @@ Requires python2.7 or higher.
 
 ---
 
-## installation
+## Installation
 
 Close this [repository](http://github.com/hhhonzik/python-brainfuck) or download [ZIP](http://github.com/hhhonzik/python-brainfuck/archive/master.zip)
 
