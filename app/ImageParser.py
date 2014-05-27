@@ -43,7 +43,8 @@ class PngReader():
                 #process chunk
 
                 op = self.chunkoperation(chunk['type']);
-                op(chunk);
+                if op:
+                    op(chunk);
 
                 # print "Parse", chunk['type'];
                 #(chunk);
