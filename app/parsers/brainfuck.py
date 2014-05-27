@@ -131,7 +131,7 @@ class BrainFuck (parserInterface):
         while i < len(code):
             operator = self.getOperator(code[i] );
             if operator == None:
-                print "Neexistujici operator: {0}:{1}".format(i,code[i]);
+                # print "Neexistujici operator: {0}:{1}".format(i,code[i]);
                 i += 1;
             else:
                 if code[i] == "[":

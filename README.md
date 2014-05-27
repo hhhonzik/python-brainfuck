@@ -28,4 +28,4 @@ Brainfuck example:
 
 Brainloller example:
 
-    python brainx.py test_data/HelloWorld.png
+    python brainx.py -l test_data/HelloWorld.png

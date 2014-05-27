@@ -81,13 +81,14 @@ class PngReader():
         # python 2.x bytes
         try:
             bytes =  bytearray(bytes);
-        except:
-            raise Exception;
 
-        r = bytes[0] << 24
-        r += bytes[1] << 16
-        r += bytes[2] << 8
-        r += bytes[3]
+            r = bytes[0] << 24
+            r += bytes[1] << 16
+            r += bytes[2] << 8
+            r += bytes[3]
+        except:
+            return 0;
+
         return r;
 
 
