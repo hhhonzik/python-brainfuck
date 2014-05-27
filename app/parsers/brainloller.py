@@ -35,7 +35,7 @@ class BrainLoller (parserInterface):
             if x < 0 or y < 0 or y >= len(data) or x >= len(data[0]):
                 break;
             else:
-                operation = self.getoperation("({0},{1},{2})".format(data[y][x][0],data[y][x][1],data[y][x][2]) );
+                operation = self.getoperation( data[y][x] );
                 if operation:
                     output, d = operation(d);
                     res += output
@@ -46,16 +46,16 @@ class BrainLoller (parserInterface):
         return res
     def getoperation(self, name):
         return {
-            "(255,0,0)": self.opLeft,
-            "(128,0,0)": self.opRight,
-            "(0,255,0)": self.opPlus,
-            "(0,128,0)": self.opMinus,
-            "(0,0,255)": self.opEcho,
-            "(0,0,128)": self.opLoad,
-            "(255,255,0)": self.opForStart,
-            "(128,128,0)": self.opForEnd,
-            "(0,255,255)": self.right,
-            "(0,128,128)": self.left
+            (255,0,0): self.opLeft,
+            (128,0,0): self.opRight,
+            (0,255,0): self.opPlus,
+            (0,128,0): self.opMinus,
+            (0,0,255): self.opEcho,
+            (0,0,128): self.opLoad,
+            (255,255,0): self.opForStart,
+            (128,128,0): self.opForEnd,
+            (0,255,255): self.right,
+            (0,128,128): self.left
 
         }.get(name);
 

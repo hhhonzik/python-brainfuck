@@ -41,7 +41,7 @@ class Controller:
         return {
             'brainfuck': parsers.BrainFuck,
             'brainloller': parsers.BrainLoller,
-            #'braincopter': Parser.braincopter()
+            'braincopter': parsers.BrainCopter
         }.get(name);
 
     """
