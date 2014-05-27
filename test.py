@@ -5,11 +5,9 @@
 # import modulu zodpovědného za testy jednotek
 import unittest
 
-
-
 ######################### - Změny
-import brainx
 import app.ImageParser as image_png # jine import
+from app.parsers.brainfuck import BrainFuck
 ######################### -/ Změny
 
 #
@@ -34,14 +32,15 @@ class TestBrainfuck(unittest.TestCase):
     """testuje chování interpretru brainfucku"""
     
     def setUp(self):
-        self.BF = brainx.BrainFuck
+        self.BF = BrainFuck
         # skrytí výstupu
         self.out = sys.stdout
         sys.stdout = FakeStdOut()
     
     def tearDown(self):
         sys.stdout = self.out
-   
+
+
     def test_bf_01(self):
         """vynulování aktuální, ale pouze aktuální, buňky"""
         program = self.BF('[-]', memory=b'\x03\x02', memory_pointer=1)
@@ -79,24 +78,25 @@ class TestBrainfuck(unittest.TestCase):
     
     def test_bf_11(self):
         r"""HelloWorld s \n"""
-        with open( 'test_data/hello1.b', encoding='ascii' ) as stream:
+        with open( 'test_data/hello1.b' ) as stream:
             data = stream.read()
         program = self.BF(data)
         self.assertEqual(program.output, 'Hello World!\n')
     
     def test_bf_12(self):
         r"""HelloWorld bez \n"""
-        with open( 'test_data/hello2.b', encoding='ascii' ) as stream:
+        with open( 'test_data/hello2.b' ) as stream:
             data = stream.read()
         program = self.BF(data)
-        self.assertEqual(program.output, 'Hello World!')
+        self.assertEqual(program.output, 'Hello World!');
+
 
 
 class TestBrainfuckWithInput(unittest.TestCase):
     """testuje chování interpretru brainfucku pro programy se vstupem"""
     
     def setUp(self):
-        self.BF = brainx.BrainFuck
+        self.BF = BrainFuck
         # skrytí výstupu
         self.out = sys.stdout
         sys.stdout = FakeStdOut()
@@ -106,7 +106,7 @@ class TestBrainfuckWithInput(unittest.TestCase):
     
     def test_bf_input_2(self):
         """numwarp.b pro vstup '123'"""
-        with open( 'test_data/numwarp_input.b', encoding='ascii' ) as stream:
+        with open( 'test_data/numwarp_input.b' ) as stream:
             data = stream.read()
         program = self.BF(data)
         self.assertEqual(program.output, '    /\\\n     /\\\n  /\\  /\n   / \n \\ \\/\n  \\\n   \n')
