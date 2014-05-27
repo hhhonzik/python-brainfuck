@@ -8,6 +8,7 @@ import unittest
 ######################### - Změny
 import app.ImageParser as image_png # jine importy
 from app.parsers.brainfuck import BrainFuck
+from app.parsers.brainloller import BrainLoller
 from app.ImageParser import PngReader
 ######################### -/ Změny
 
@@ -144,8 +145,8 @@ class TestBrainloller(unittest.TestCase):
     """testuje chování interpretru brainlolleru"""
     
     def setUp(self):
-        self.BF = brainx.BrainFuck
-        self.BL = brainx.BrainLoller
+        self.BF = BrainFuck
+        self.BL = BrainLoller
         # skrytí výstupu
         self.out = sys.stdout
         sys.stdout = FakeStdOut()

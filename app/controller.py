@@ -26,18 +26,7 @@ class Controller:
             #initialize parser
             self.parser = self.initialize(self.type);
 
-
-            try:
-            # je to soubor
-                with open(self.file, mode='r') as _file:
-                    data = _file.read();
-            except:
-                # výjimka -> rovnou data
-                data = self.file;
-
-
-
-            self.instance = self.parser( data );
+            self.instance = self.parser( self.file );
 
         else:
             self.error("Invalid import type: {0}".format(self.type));
@@ -51,7 +40,7 @@ class Controller:
     def initialize(self, name):
         return {
             'brainfuck': parsers.BrainFuck,
-            #'brainloller': Parser.brainloller(),
+            'brainloller': parsers.BrainLoller,
             #'braincopter': Parser.braincopter()
         }.get(name);
 

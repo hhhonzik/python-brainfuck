@@ -32,11 +32,9 @@ class PngReader():
 
         while True:
             chunk = {x: '' for x in ['length', 'type', 'data', 'crc']}
-            chunk['length'] = self.btoi(self.file.read(4))
+            chunk['length'] = ( self.btoi(self.file.read(4)) + 256) % 256;
             chunk['type'] = self.file.read(4);
-
             chunk['data'] = self.file.read(chunk['length']);
-
             chunk['crc'] = self.btoi(self.file.read(4));
 
             if chunk['type'] == 'IEND':
@@ -80,7 +78,10 @@ class PngReader():
     def btoi(self, bytes):
 
         # python 2.x bytes
-        bytes = struct.unpack("4b", bytes);
+        try:
+            bytes =  bytearray(bytes);
+        except:
+            raise Exception;
 
         r = bytes[0] << 24
         r += bytes[1] << 16
@@ -90,26 +91,101 @@ class PngReader():
 
 
     def getPixel(self, b):
-        v = struct.unpack("b",b)[0];
-        if v==-1:
+        v = struct.unpack("b", b)[0];
+        if v == -1:
             v = 255;
-        return v;
+        return (v + 256) % 256;
+
     def process(self):
         i = 0
-        for row in range(0,self.height):
+        for row in range(0, self.height):
             line = []
             pngfilter = struct.unpack("b", self.idat[i])[0];
             i += 1
             for col in range(0, self.width):
-                pixel = (self.getPixel( self.idat[i] ), self.getPixel( self.idat[i+1] ), self.getPixel( self.idat[i+2] ));
+                pixel = (self.getPixel(self.idat[i]), self.getPixel(self.idat[i + 1]), self.getPixel(self.idat[i + 2]));
                 i += 3
 
                 # None filtr
                 if pngfilter == 0:
                     a = pixel
                     line += [pixel]
+                    # Up filtr
+                elif pngfilter == 1:
+                    if col == 0:
+                        a = (0, 0, 0)
+                        a = pixel
+                    else:
+                        a = ((pixel[0] + a[0] + 256)%256, (pixel[1] + a[1] + 256)%256, (pixel[2] + a[2] + 256)%256)
+
+                    line += [a]
+                elif pngfilter == 2:
+                    if row == 0:
+                        b = (0, 0, 0)
+                        a = pixel
+                    else:
+                        b = self.rgb[row - 1][col]
+                        a = ((pixel[0] + b[0]+ 256) % 256, (pixel[1] + b[1]+ 256) % 256, (pixel[2] + b[2]+ 256) % 256)
+
+                    line += [a]
+
+                # Average filtr
+                elif pngfilter == 3:
+                    if row == 0:
+                        b = (0, 0, 0)
+                    else:
+                        b = self.rgb[row - 1][col]
+
+                    if col == 0:
+                        a = (0, 0, 0)
+                    else:
+                        a = line[col - 1]
+
+                    pixel = ((pixel[0] + (a[0] + b[0]) // 2 + 256) % 256, (pixel[1] + (a[1] + b[1]) // 2 + 256) % 256,
+                             (pixel[2] + (a[2] + b[2]) // 2 + 256) % 256)
+
+                    line += [pixel]
+
+                elif pngfilter == 4:
+                    if row == 0 or col == 0:
+                        c = (0, 0, 0)
+                    else:
+                        c = self.rgb[row - 1][col - 1]
+
+                    if row == 0:
+                        b = (0, 0, 0)
+                    else:
+                        b = self.rgb[row - 1][col]
+
+                    if col == 0:
+                        a = (0, 0, 0)
+                    else:
+                        a = line[col - 1]
+
+                    pixR = (pixel[0] + self.paeth(a[0], b[0], c[0]) + 256) % 256
+                    pixG = (pixel[1] + self.paeth(a[1], b[1], c[1]) + 256) % 256
+                    pixB = (pixel[2] + self.paeth(a[2], b[2], c[2]) + 256) % 256
+                    pixel = (pixR, pixG, pixB)
+
+                    line += [pixel]
                 else:
-                    raise PNGNotImplementedError("Loaded image uses filter which is not supported.")
+                    raise PNGNotImplementedError(
+                        "Loaded image uses filter which is not supported: {0}".format(pngfilter))
+
 
             self.rgb += [line]
         return;
+
+
+    def paeth(self, a, b, c):
+        p = a + b - c
+        pa = abs(p - a)
+        pb = abs(p - b)
+        pc = abs(p - c)
+
+        if pa <= pb and pa <= pc:
+            return a
+        elif pb <= pc:
+            return b
+        else:
+            return c

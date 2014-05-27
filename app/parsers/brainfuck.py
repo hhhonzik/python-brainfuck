@@ -9,14 +9,6 @@ class BrainFuck (parserInterface):
 
     def __init__(self, data, memory=b'\x00', memory_pointer=0):
         """Inicializace interpretru brainfucku."""
-
-        # print self.data;
-        if data is types.FileType:
-            self.data = data.read();
-        else:
-            self.data = data;
-
-
         # file load
         # data programu
         try:
