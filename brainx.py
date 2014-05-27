@@ -25,3 +25,7 @@ def main(argv=None):
     controller = app.Controller(args.type, args.file);
     controller.run();
     controller.render();
+
+
+if __name__ == "__main__":
+    sys.exit(main())

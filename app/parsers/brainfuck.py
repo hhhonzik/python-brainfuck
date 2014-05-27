@@ -160,6 +160,5 @@ class BrainFuck (parserInterface):
     # output
     #
     def render(self):
-        print "Output: ";
         print self.output;
 

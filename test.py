@@ -6,8 +6,9 @@
 import unittest
 
 ######################### - Změny
-import app.ImageParser as image_png # jine import
+import app.ImageParser as image_png # jine importy
 from app.parsers.brainfuck import BrainFuck
+from app.ImageParser import PngReader
 ######################### -/ Změny
 
 #
@@ -135,6 +136,7 @@ class TestPNG(unittest.TestCase):
     def test_png_03(self):
         """načtení jednoduchého PNG-obrázku"""
         image = self.png('test_data/sachovnice.png')
+
         self.assertEqual( image.rgb, [[(255, 0, 0), (0, 255, 0), (0, 0, 255)], [(255, 255, 255), (127, 127, 127), (0, 0, 0)], [(255, 255, 0), (255, 0, 255), (0, 255, 255)]] )
 
 
