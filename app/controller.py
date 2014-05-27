@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import parsers;
 
 class Controller:
@@ -26,11 +27,17 @@ class Controller:
             self.parser = self.initialize(self.type);
 
 
-            # inicializace je jina pro kazdou tridu :/
-            if self.type == "brainfuck":
-                with open( 'test_data/hello2.b' ) as stream:
-                    data = stream.read()
-                self.instance = self.parser(data);
+            try:
+            # je to soubor
+                with open(self.file, mode='r') as _file:
+                    data = _file.read();
+            except:
+                # výjimka -> rovnou data
+                data = self.file;
+
+
+
+            self.instance = self.parser( data );
 
         else:
             self.error("Invalid import type: {0}".format(self.type));
