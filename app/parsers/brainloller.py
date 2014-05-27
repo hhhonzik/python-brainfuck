@@ -7,13 +7,16 @@ from ..ImageParser import PngReader;
 class BrainLoller (parserInterface):
     """A class to process brainloller language."""
 
-    def __init__(self, filename):
+    def __init__(self, filename, decodeBF=False):
 
         img = PngReader(filename);
 
         self.data = self.decode(img.rgb);
 
-        self.program = BrainFuck(self.data);
+        if decodeBF:
+            self.output = self.data;
+        else:
+            self.program = BrainFuck(self.data);
 
     def decode(self, data):
         """Parsing PNG file and returning BrainFuck code."""
