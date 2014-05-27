@@ -35,6 +35,22 @@ class BrainFuck (parserInterface):
         self.output = ''
 
 
+        # !?
+        self.input_pointer = 0;
+        if '!' in self.data:
+            exc = self.data.index('!') +1 # chceme pozici znaku za vykřičníkem -> +1
+            # očekáváme vstup
+            if exc+1 < len(self.data):
+                # uložíme vstup
+                self.input = self.data[exc:]
+                # a odstraníme ho z kódu
+                self.data = self.data[:exc]
+            else:
+                self.input = ''
+        else:
+            self.input = ''
+
+
         self.decode(self.data);
 
 
@@ -77,8 +93,11 @@ class BrainFuck (parserInterface):
 
     # nacteni hodnoty
     def operatorLoad(self):
-        self.memory[self.memory_pointer] = ord(sys.stdin.read(1))
-        return;
+        if len(self.input) == 0 or self.input_pointer == len(self.input):
+            self.memory[self.memory_pointer] = ord(sys.stdin.read(1))
+        else:
+            self.memory[self.memory_pointer] = ord(self.input[self.input_pointer])
+            self.input_pointer += 1
 
 
     # vypis bunky
