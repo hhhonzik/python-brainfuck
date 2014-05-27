@@ -1,68 +1,62 @@
-__author__ = 'honzicek'
-import Parser
+import parsers;
 
 class Controller:
-
 
     """
         Init function to initialize command line args into our flow.
     """
-    def __init__(self, args):
-        self.args = args;
-        pass
+    def __init__(self, type,
+                 file):
 
+        if type == None:
+            self.type = "brainfuck" #default
+        else:
+            self.type = type;
+
+        self.file = file;
+        pass
 
     """
         Main function that will first check existing libraries and their requirements
     """
     def run(self):
-        if len(self.args) == 1:
-            print "No import type specified!"
-            return self.help()
-
-        if len(self.args) < 3:
-            print "No input specified!"
-            return self.help()
-
-        if self.args[1] in ["video", "gif", "images"]:
+        if self.type in ["brainloller", "braincopter", "brainfuck"]:
 
             #initialize parser
-            self.parser = self.initializeParser(self.args[1])
+            self.parser = self.initialize(self.type);
 
-            #parse input
-            if self.parser.parseInput(self.args[2]):
 
-                #initialize Generator
-                print "Running conversion."
-            else:
-                print "Problem with importing, exiting .."
+            # inicializace je jina pro kazdou tridu :/
+            if self.type == "brainfuck":
+                with open( 'test_data/hello2.b' ) as stream:
+                    data = stream.read()
+                self.instance = self.parser(data);
 
         else:
-            print "Invalid import type!"
-            self.help();
+            self.error("Invalid import type: {0}".format(self.type));
 
 
-        pass
+        return self;
 
-    def initializeParser(self, name):
+    def render(self):
+        self.instance.render();
+
+    def initialize(self, name):
         return {
-            'images': Parser.Images(),
-        }.get(name)
+            'brainfuck': parsers.BrainFuck,
+            #'brainloller': Parser.brainloller(),
+            #'braincopter': Parser.braincopter()
+        }.get(name);
 
     """
-        Help will write a quick usage manual to console
+        Error writing
     """
-    def help(self):
+    def error(self, msg):
+
+        print "Program error: {0}".format(msg)
+        pass;
 
 
-        file = self.args[0][self.args[0].rfind("/")+1:-1] + "y"
-
-        print ""
-        print "Example usage:"
-        print ""
-        print file + " video video.mp4 <delay_between_frames_in_ms>"
-        print file + " gif file.gif"
-        print file + " images images/*.png"
 
 
 
