@@ -16,11 +16,11 @@ class BrainCopter (BrainLoller):
             self.char = '><+-.,[]'[i];
             return self.normalChar;
         elif i == 8:
-            self.right;
+            return self.right;
         elif i == 9:
-            self.left;
+            return self.left;
 
-        return res, d
+
 
     def normalChar(self, d):
         return self.char, d;

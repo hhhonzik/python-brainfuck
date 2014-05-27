@@ -165,6 +165,12 @@ class TestBrainloller(unittest.TestCase):
         self.assertEqual(objekt.program.output, 'Hello World!')
 
 
+    # def test_bl_2(self):
+    #     """vykonání programu z obrázku LostKindfom.png"""
+    #     objekt = self.BL('test_data/TheLostKingdom.png')
+    #     self.assertEqual(objekt.program.output, 'Hello World!')
+
+
 #
 # zajištění spuštění testů při zavolání souboru z příkazové řádky
 #

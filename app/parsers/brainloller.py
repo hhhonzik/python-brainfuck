@@ -8,6 +8,7 @@ class BrainLoller (parserInterface):
     """A class to process brainloller language."""
 
     def __init__(self, filename):
+
         img = PngReader(filename);
 
         self.data = self.decode(img.rgb);
@@ -21,17 +22,12 @@ class BrainLoller (parserInterface):
 
         # pozice: x, y, start na [0, 0]
         # směr, start 1:
-        #
-        #    0
-        # 3 -|- 1
-        #    2
-
         x = y = 0
         d = 1
 
-
+        # print len(data);
+        # print len(data[0]);
         while True:
-
             if x < 0 or y < 0 or y >= len(data) or x >= len(data[0]):
                 break;
             else:

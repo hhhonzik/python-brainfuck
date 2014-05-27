@@ -13,7 +13,7 @@ class BrainFuck (parserInterface):
         # data programu
         try:
             # je to soubor
-            with data as _file:
+            with open(data, mode="r") as _file:
                 self.data = _file.read()
         except:
             # výjimka -> rovnou data

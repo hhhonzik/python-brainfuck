@@ -32,7 +32,7 @@ class PngReader():
 
         while True:
             chunk = {x: '' for x in ['length', 'type', 'data', 'crc']}
-            chunk['length'] = ( self.btoi(self.file.read(4)) + 256) % 256;
+            chunk['length'] = self.btoi(self.file.read(4));
             chunk['type'] = self.file.read(4);
             chunk['data'] = self.file.read(chunk['length']);
             chunk['crc'] = self.btoi(self.file.read(4));
@@ -45,6 +45,9 @@ class PngReader():
                 op = self.chunkoperation(chunk['type']);
                 if op:
                     op(chunk);
+                else:
+                    raise PNGNotImplementedError( "Chunk {0} not compatible. Data: {1}".format(chunk["type"], chunk) );
+                    break;
 
                 # print "Parse", chunk['type'];
                 #(chunk);
@@ -99,6 +102,7 @@ class PngReader():
         return (v + 256) % 256;
 
     def process(self):
+
         i = 0
         for row in range(0, self.height):
             line = []
@@ -176,6 +180,7 @@ class PngReader():
 
 
             self.rgb += [line]
+
         return;
 
 

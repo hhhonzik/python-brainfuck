@@ -1,4 +1,4 @@
-# brainfuck
+# BrainFuck
 
 ---
 
@@ -26,6 +26,11 @@ Brainfuck example:
 
     python brainx.py "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++."
 
-Brainloller example:
+BrainLoller example:
 
     python brainx.py -l test_data/HelloWorld.png
+
+
+BrainCopter example:
+
+    python brainx.py -c test_data/TheLostKingdom.png
