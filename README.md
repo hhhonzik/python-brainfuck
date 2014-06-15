@@ -71,6 +71,6 @@ BrainFuck to BrainLoller example (bf2bl):
 
 BrainCopter to BrainLoller example (bc2bl):
 
-     python convert.py -t bf2bl -o hello.png ./test_data/hello1.b
+     python convert.py -t bc2bl -o hello.png ./test_data/hello1.b
 
 

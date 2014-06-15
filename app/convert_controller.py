@@ -31,13 +31,26 @@ class ConvertController:
             self.instance = self.parser( self.file, decodeBF=True );
             self.output = self.instance.output;
 
-        elif self.type in ["bf2bl"]:
-            #initialize parser
-            self.parser = self.initialize(self.type);
+        elif self.type in ["bf2bl", "bc2bl"]:
 
-            self.instance = self.parser( self.file, self.output );
+            if self.output == None:
+                self.error("Invalid output file: {0}".format(self.output));
+            else:
 
-            self.output = self.instance.output;
+                if self.type == "bc2bl":
+                    # load input to BrainFuck code
+                    converter = ConvertController('bc2bf', self.file, False);
+                    converter.run();
+                    print " we have a code";
+                    self.file = converter.output;
+
+
+                #initialize parser
+                self.parser = self.initialize(self.type);
+
+                self.instance = self.parser( self.file, self.output );
+
+                self.output = self.instance.output;
 
         else:
             self.error("Invalid import type: {0}".format(self.type));
@@ -55,6 +68,7 @@ class ConvertController:
             'bc2bf': parsers.BrainCopter,
             'bl2bf': parsers.BrainLoller,
             'bf2bl': coders.BrainLoller,
+            'bc2bl': coders.BrainLoller,
         }.get(name);
 
     """

@@ -22,7 +22,6 @@ class BrainLoller (coderInterface):
 
         data = self.code(self.data);
 
-
         self.output = "BrainFuck code Written to {0}".format(output);
         self.outputImg = PngWriter(output, self.width, self.height, data);
 

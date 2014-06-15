@@ -17,7 +17,7 @@ def main(argv=None):
     parser.add_argument('source');
     parser.add_argument('-o', '--output', dest="output");
     parser.add_argument('--version', action='version', version='%(prog)s 0.1');
-    parser.add_argument('-t', '--type', dest="type", action="store", help="Specify type.", choices={"bc2bf","bl2bf", "bf2bl"});
+    parser.add_argument('-t', '--type', dest="type", action="store", help="Specify type.", choices={"bc2bf","bl2bf", "bf2bl", "bc2bl"});
 
 
     args = parser.parse_args();
