@@ -44,7 +44,6 @@ class BrainLoller (parserInterface):
 
         return res
     def getoperation(self, name):
-
         return {
             (255,0,0): self.opLeft,
             (128,0,0): self.opRight,
@@ -58,6 +57,7 @@ class BrainLoller (parserInterface):
             (0,128,128): self.left
 
         }.get(name);
+
 
     def opLeft(self,d):
         return ">",d;

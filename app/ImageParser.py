@@ -38,7 +38,7 @@ class PngReader():
             chunk['crc'] = self.btoi(self.file.read(4));
 
             if chunk['type'] == 'IEND':
-                break
+                break;
             else:
                 #process chunk
 
@@ -74,6 +74,9 @@ class PngReader():
         # z prednasek
         if chunk['data'][8:] != b'\x08\x02\x00\x00\x00':
             raise PNGNotImplementedError("Loaded image has a structure that cannot be processed.")
+
+
+
 
 
     def p_idat(self, chunk):
@@ -196,3 +199,73 @@ class PngReader():
             return b
         else:
             return c
+
+
+class PngWriter():
+    def __init__(self, filepath, width, height, data):
+
+        self.file = open(filepath, mode="wb");
+
+        self.writeHeader(width,height).writeData(data).writeEnd();
+
+
+
+    def writeHeader(self, width, height):
+        # PNG header
+        self.file.write(b'\x89PNG\r\n\x1a\n');
+        # self.file.write(b'\x00'); # ???
+
+        #IHDR chunk
+
+        chunk = {x: '' for x in ['length', 'type', 'data', 'crc']}
+        chunk['length'] = 13; # width (4) + height (4) + other (5);
+        chunk['type'] = b'IHDR';
+        chunk['data'] = self.itob(width) + self.itob(height) + b'\x08\x02\x00\x00\x00';
+
+
+        self.write(chunk);
+
+        return self;
+    def itob(self, x, unsigned=True ):
+        # return struct.pack('>BH', x >> 16, x & 0xFFFF);
+        if unsigned:
+            return struct.pack('>I', x)
+        else:
+            return struct.pack('>i', x)
+    def writeData(self, colors):
+        chunk = {x: '' for x in ['length', 'type', 'data', 'crc']}
+        chunk['type'] = b"IDAT";
+        chunk['data'] = b'';
+
+        for line in colors:
+            chunk['data'] += struct.pack("B", 00);
+            for pixel in line:
+                chunk['data'] += struct.pack("B", pixel[0]);
+                chunk['data'] += struct.pack("B", pixel[1]);
+                chunk['data'] += struct.pack("B", pixel[2]);
+
+                # chunk['data'] += self.itob(pixel[1]);
+                # chunk['data'] += self.itob(pixel[2]);
+
+        chunk['data'] = zlib.compress( chunk['data'] );
+        chunk['length'] = len(chunk['data']);
+
+
+        self.write(chunk);
+
+        return self;
+
+    def writeEnd(self):
+
+        #end chunk
+        self.file.write(self.itob(0) + b'IEND' + b'' + self.itob(zlib.crc32(b'IEND'), False))
+        return self;
+
+    def write(self, chunk):
+        chunk['crc'] = zlib.crc32( bytes(chunk['type'])+chunk['data'] );
+
+        self.file.write(self.itob(chunk['length'], False));
+        self.file.write(chunk['type']);
+        self.file.write(chunk['data']);
+        self.file.write(self.itob(chunk['crc'], False))
+

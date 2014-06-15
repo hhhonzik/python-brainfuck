@@ -50,6 +50,14 @@ class TestConverter(unittest.TestCase):
 
         self.assertEqual(program.output, '>+++++++++[<++++++++>-]<.>+++++++[<++++>-]<+.+++++++..+++.>>>++++++++[<++++>-]<.>>>++++++++++[<+++++++++>-]<---.<<<<.+++.------.--------.>>+.');
 
+    def test_bf_02(self):
+        """vynulování aktuální, ale pouze aktuální, buňky"""
+        program = self.controller('bc2bf', 'test_data/HelloWorld.png');
+        output = program.run();
+
+        self.assertEqual(program.output, '>+++++++++[<++++++++>-]<.>+++++++[<++++>-]<+.+++++++..+++.>>>++++++++[<++++>-]<.>>>++++++++++[<+++++++++>-]<---.<<<<.+++.------.--------.>>+.');
+
+
 
 #
 # zajištění spuštění testů při zavolání souboru z příkazové řádky
