@@ -1,4 +1,4 @@
-# BrainFuck
+# BrainFuck Interpretor
 
 ---
 
@@ -16,7 +16,7 @@ Close this [repository](http://github.com/hhhonzik/python-brainfuck) or download
 
 ## Documentation
 
-    python brainx.py --help
+    python convert.py --help
 
 ## Examples
 
