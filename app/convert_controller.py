@@ -58,7 +58,6 @@ class ConvertController:
                     # load input to BrainFuck code
                     converter = ConvertController('bc2bf', self.file, False, False);
                     converter.run();
-                    print " we have a code";
                     self.file = converter.output;
 
 
