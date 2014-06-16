@@ -236,16 +236,15 @@ class PngWriter():
         chunk = {x: '' for x in ['length', 'type', 'data', 'crc']}
         chunk['type'] = b"IDAT";
         chunk['data'] = b'';
-
+        i = 0;
         for line in colors:
+            i+=1;
             chunk['data'] += struct.pack("B", 00);
+
             for pixel in line:
                 chunk['data'] += struct.pack("B", pixel[0]);
                 chunk['data'] += struct.pack("B", pixel[1]);
                 chunk['data'] += struct.pack("B", pixel[2]);
-
-                # chunk['data'] += self.itob(pixel[1]);
-                # chunk['data'] += self.itob(pixel[2]);
 
         chunk['data'] = zlib.compress( chunk['data'] );
         chunk['length'] = len(chunk['data']);

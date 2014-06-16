@@ -12,7 +12,8 @@ class BrainLoller (parserInterface):
         img = PngReader(filename);
 
         self.data = self.decode(img.rgb);
-
+        print "decoded: {0}".format(self.data);
+        return;
         if decodeBF:
             self.output = self.data;
         else:
@@ -38,9 +39,9 @@ class BrainLoller (parserInterface):
                 if operation:
                     output, d = operation(d);
                     res += output
+
+
                 x, y = self.move(x, y, d)
-
-
 
         return res
     def getoperation(self, name):

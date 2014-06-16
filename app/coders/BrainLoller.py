@@ -50,7 +50,6 @@ class BrainLoller (coderInterface):
                     line.reverse();
                     line.append((0,128,128));
                     line.reverse();
-
                 line.append( (0,255,255) );
 
                 colors.append(line);
