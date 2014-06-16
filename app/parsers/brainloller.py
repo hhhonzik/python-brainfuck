@@ -12,8 +12,7 @@ class BrainLoller (parserInterface):
         img = PngReader(filename);
 
         self.data = self.decode(img.rgb);
-        print "decoded: {0}".format(self.data);
-        return;
+
         if decodeBF:
             self.output = self.data;
         else:

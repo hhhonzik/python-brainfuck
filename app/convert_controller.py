@@ -36,11 +36,10 @@ class ConvertController:
                 self.error("Invalid output file: {0}".format(self.output));
             else:
 
-                if self.type == "bc2bl":
+                if self.type == "bl2bc":
                     # load input to BrainFuck code
-                    converter = ConvertController('bc2bf', self.file, False);
+                    converter = ConvertController('bl2bf', self.file, False, False);
                     converter.run();
-                    print " we have a code";
                     self.file = converter.output;
 
                 #initialize parser
@@ -57,7 +56,7 @@ class ConvertController:
 
                 if self.type == "bc2bl":
                     # load input to BrainFuck code
-                    converter = ConvertController('bc2bf', self.file, False);
+                    converter = ConvertController('bc2bf', self.file, False, False);
                     converter.run();
                     print " we have a code";
                     self.file = converter.output;
@@ -88,6 +87,7 @@ class ConvertController:
             'bf2bl': coders.BrainLoller,
             'bc2bl': coders.BrainLoller,
             'bf2bc': coders.BrainCopter,
+            'bl2bc': coders.BrainCopter,
 
         }.get(name);
 

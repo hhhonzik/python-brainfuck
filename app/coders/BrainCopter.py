@@ -21,10 +21,10 @@ class BrainCopter (coderInterface):
 
         # data vstupu
         try:
-            with open(input, mode="r") as _file:
-                self.data = _file.read()
+            with open(source, mode="r") as _file:
+                self.source= _file.read()
         except:
-            raise IOException("Input file does not exists");
+            raise IOException("Input image file does not exists: {0}".format(input));
 
         self.source = PngReader(source)
 
@@ -36,7 +36,7 @@ class BrainCopter (coderInterface):
 
         self.outputImg = PngWriter(output, self.source.width, self.source.height, data);
 
-        self.output = "BrainFuck code Written to {0}".format(output);
+        self.output = "Code Written to {0}".format(output);
 
 
     def code(self, data, source):
@@ -83,14 +83,9 @@ class BrainCopter (coderInterface):
                     pushed += 1;
                     if pushed == len(data):
                         ended = True;
-            print len( line );
             colors.append(line);
             line = [];
             front = None;
-
-        print "";
-        print len(colors);
-        print len(colors[0]);
 
         return colors;
 
@@ -100,12 +95,12 @@ class BrainCopter (coderInterface):
         i = (-2*color[0] + 3*color[1] + color[2]) % 11;
 
         b = color[2];
-        if color[2] > 11:
-            b = color[2] - 11 + (number - i);
-        elif color[2] < 255-11:
-            b +=  11 + number - i ;
-        else:
-            b += number - i ;
+        if color[2] < 11:
+            b += 11;
+        elif color[2] > 255-12:
+            b -= 11;
+
+        b += number - i ;
         # print "Before: {0}, after: {1}".format(i, (-2*color[0] + 3*color[1] + b) % 11);
         return (color[0], color[1], b);
 
