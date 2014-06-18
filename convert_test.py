@@ -21,6 +21,7 @@ import sys
 
 class FakeStdOut:
     def write(self, *args, **kwargs):
+        # print args;
         pass
     def flush(self):
         pass
@@ -52,18 +53,92 @@ class TestConverter(unittest.TestCase):
 
     def test_bf_02(self):
         """vynulování aktuální, ale pouze aktuální, buňky"""
-        program = self.controller('bc2bf', 'test_data/HelloWorld.png');
+        program = self.controller('bc2bf', 'test_data/helloworld.bc.png');
         output = program.run();
 
-        self.assertEqual(program.output, '>+++++++++[<++++++++>-]<.>+++++++[<++++>-]<+.+++++++..+++.>>>++++++++[<++++>-]<.>>>++++++++++[<+++++++++>-]<---.<<<<.+++.------.--------.>>+.');
+        self.assertEqual(program.output, '++++++++++[>+++++++>++++++++++>+++>+<<<<-]>++.>+.+++++++..+++.>++.<<+++++++++++++++.>.+++.------.--------.>+.>.');
 
 
 
-    def test_bf_02(self):
+    def test_bl_01(self):
         """vynulování aktuální, ale pouze aktuální, buňky"""
-        program = self.controller('bf2bl', 'test_data/hell1.b');
-        
-        self.assertEqual(program.output, '>+++++++++[<++++++++>-]<.>+++++++[<++++>-]<+.+++++++..+++.>>>++++++++[<++++>-]<.>>>++++++++++[<+++++++++>-]<---.<<<<.+++.------.--------.>>+.');
+        program = self.controller('bf2bl', 'test_data/hello1.b', 'testbl.png');
+        output = program.run();
+
+        self.assertEqual(program.output, "BrainFuck code Written to testbl.png");
+
+
+        # porovnani souboru
+        # je to soubor
+
+        file1 = '';
+        with open("./testbl.png", mode="rb") as _file:
+            file1 += _file.read()
+
+        file2 = '';
+        with open("./test_data/helloworld.bl.png", mode="rb") as _file:
+            file2 += _file.read()
+
+        self.assertEqual(file1, file2);
+
+
+
+
+
+    def test_bl_02(self):
+        program = self.controller('bf2bl', '+');
+        output = program.run();
+        self.assertEqual(program.output, None);
+
+
+
+    def test_bl_03(self):
+        program = self.controller('bc2bl', 'test_data/helloworld.bc.png', 'test.bc2bl.png');
+        output = program.run();
+        self.assertEqual(program.output, "BrainFuck code Written to test.bc2bl.png");
+
+
+        file1 = '';
+        with open("./test.bc2bl.png", mode="rb") as _file:
+            file1 += _file.read()
+
+        file2 = '';
+        with open("./test_data/helloworld.bl.png", mode="rb") as _file:
+            file2 += _file.read()
+
+        self.assertEqual(file1, file2);
+
+    def test_bc_04(self):
+        program = self.controller('bl2bc', 'test_data/helloworld.bl.png', 'test.bl2bc.png', 'test_data/test.bc.png');
+        output = program.run();
+        self.assertEqual(program.output, "Code Written to test.bl2bc.png");
+
+        file1 = '';
+        with open("./test.bl2bc.png", mode="rb") as _file:
+            file1 += _file.read()
+
+        file2 = '';
+        with open("./test_data/helloworld.bc.png", mode="rb") as _file:
+            file2 += _file.read()
+
+        self.assertEqual(file1, file2);
+
+
+    def test_bc_05(self):
+        program = self.controller('bf2bc', 'test_data/hello1.b', 'test.bf2bc.png', 'test_data/test.bc.png');
+        output = program.run();
+        self.assertEqual(program.output, "Code Written to test.bf2bc.png");
+
+        file1 = '';
+        with open("./test.bf2bc.png", mode="rb") as _file:
+            file1 += _file.read()
+
+        file2 = '';
+        with open("./test_data/helloworld.bc.png", mode="rb") as _file:
+            file2 += _file.read()
+
+        self.assertEqual(file1, file2);
+
 
 
 

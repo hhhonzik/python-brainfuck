@@ -7,7 +7,7 @@ class ConvertController:
     """
         Init function to initialize command line args into our flow.
     """
-    def __init__(self, type, file, output, source):
+    def __init__(self, type, file, output = None, source = None):
 
         if type == None:
             self.type = "brainfuck" #default
@@ -48,6 +48,7 @@ class ConvertController:
                 self.output = self.instance.output;
 
 
+
         elif self.type in ["bf2bl", "bc2bl"]:
 
             if self.output == None:
@@ -60,13 +61,13 @@ class ConvertController:
                     converter.run();
                     self.file = converter.output;
 
-
                 #initialize parser
                 self.parser = self.initialize(self.type);
 
                 self.instance = self.parser( self.file, self.output );
 
                 self.output = self.instance.output;
+
 
         else:
             self.error("Invalid import type: {0}".format(self.type));

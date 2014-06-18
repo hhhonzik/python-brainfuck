@@ -208,6 +208,8 @@ class PngWriter():
 
         self.writeHeader(width,height).writeData(data).writeEnd();
 
+        self.file.close();
+
 
 
     def writeHeader(self, width, height):
@@ -239,9 +241,12 @@ class PngWriter():
         i = 0;
         for line in colors:
             i+=1;
-            chunk['data'] += struct.pack("B", 00);
 
+            chunk['data'] += struct.pack("B", 00);
+            j = 0;
             for pixel in line:
+
+                j+=1;
                 chunk['data'] += struct.pack("B", pixel[0]);
                 chunk['data'] += struct.pack("B", pixel[1]);
                 chunk['data'] += struct.pack("B", pixel[2]);

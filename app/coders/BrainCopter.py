@@ -34,6 +34,7 @@ class BrainCopter (coderInterface):
 
         data = self.code(self.data, self.source);
 
+
         self.outputImg = PngWriter(output, self.source.width, self.source.height, data);
 
         self.output = "Code Written to {0}".format(output);
@@ -60,7 +61,6 @@ class BrainCopter (coderInterface):
                     line.append( self.getColor(10, orig) );
                 elif ox == 0 and oy > 0:
                     #always left
-
                     front = self.getColor(9, orig);
                     # donothing = "";
                 elif ox == source.width-1:
@@ -77,12 +77,19 @@ class BrainCopter (coderInterface):
                     line.append( self.getColor( 8, orig) );
 
 
-
                 else:
-                    line.append( self.getColor('><+-.,[]'.index(data[pushed]) , orig) );
-                    pushed += 1;
-                    if pushed == len(data):
-                        ended = True;
+                    notpixeled = True
+                    while notpixeled:
+                        if data[pushed] in "><+-.,[]":
+                            line.append( self.getColor('><+-.,[]'.index(data[pushed]) , orig) );
+                            notpixeled = False;
+                        pushed += 1;
+                        if pushed == len(data):
+                            ended = True;
+                            if notpixeled:
+                                line.append( self.getColor(10, orig) );
+                                notpixeled = False
+
             colors.append(line);
             line = [];
             front = None;
