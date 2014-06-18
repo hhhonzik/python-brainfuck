@@ -16,7 +16,7 @@ Clone this [repository](http://github.com/hhhonzik/python-brainfuck) or download
 
 ## Documentation
 
-    python convert.py --help
+    python brainx.py --help
 
 ## Examples
 
@@ -49,7 +49,7 @@ Requires python2.7.
 
 This convertor use PNG-8 images.
 
-    python brainx.py --help
+    python convert.py --help
 
 
 
