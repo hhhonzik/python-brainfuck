@@ -34,7 +34,7 @@ BrainLoller example:
 
 BrainCopter example:
 
-    python brainx.py -c test_data/TheLostKingdom.png
+    python brainx.py -c test_data/helloworld.bc.png
 
 
 # B* Converter
