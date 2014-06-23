@@ -17,24 +17,24 @@ Clone this [repository](http://github.com/hhhonzik/python-brainfuck) or download
 
 ## Documentation
 
-    python brainx.py --help
+    python3 brainx.py --help
 
 ## Examples
 
 Brainfuck example:
 
-    python brainx.py test_data/hello1.b
+    python3 brainx.py test_data/hello1.b
 
-    python brainx.py "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++."
+    python3 brainx.py "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++."
 
 BrainLoller example:
 
-    python brainx.py -l test_data/HelloWorld.png
+    python3 brainx.py -l test_data/HelloWorld.png
 
 
 BrainCopter example:
 
-    python brainx.py -c test_data/helloworld.bc.png
+    python3 brainx.py -c test_data/helloworld.bc.png
 
 
 # B* Converter
@@ -50,7 +50,7 @@ Requires python2.7.
 
 This convertor use PNG-8 images.
 
-    python convert.py --help
+    python3 convert.py --help
 
 
 
@@ -62,11 +62,11 @@ BrainFuck or BrainCopter to BrainLoller.
 
 BrainFuck to BrainLoller example (bf2bl):
 
-     python convert.py -t bf2bl -o hello.png ./test_data/hello1.b
+     python3 convert.py -t bf2bl -o hello.png ./test_data/hello1.b
 
 BrainCopter to BrainLoller example (bc2bl):
 
-      python convert.py -t bc2bl -o hello.png ./test_data/bc_helloworld.png
+      python3 convert.py -t bc2bl -o hello.png ./test_data/bc_helloworld.png
 
 
 ### *2bc
@@ -75,11 +75,11 @@ BrainFuck or BrainLoller to BrainCopter, you need to specify source image and br
 
 BrainFuck to BrainCopter example (bf2bc):
 
-     python convert.py -t bf2bc -i test_data/temp.png -o hello2.png test_data/hello1.b
+     python3 convert.py -t bf2bc -i test_data/temp.png -o hello2.png test_data/hello1.b
 
 BrainLoller to BrainCopter example (bl2bc):
 
-     python convert.py -t bl2bc -i test_data/temp.png -o hello3.png test_data/HelloWorld.png
+     python3 convert.py -t bl2bc -i test_data/temp.png -o hello3.png test_data/HelloWorld.png
 
 
 
@@ -87,12 +87,12 @@ BrainLoller to BrainCopter example (bl2bc):
 
 BrainLoller to BrainFuck example (bl2bf):
 
-     python convert.py -t bl2bf test_data/HelloWorld.png
+     python3 convert.py -t bl2bf test_data/HelloWorld.png
 
 
 BrainCopter to BrainFuck example (bc2bf):
 
-     python convert.py -t bc2bf test_data/TheLostKingdom.png
+     python3 convert.py -t bc2bf test_data/TheLostKingdom.png
 
 
 
