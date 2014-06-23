@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import math, sys, types;
-from interface import coderInterface;
-from ..ImageParser import PngWriter, PngReader;
+from app.coders.interface import coderInterface;
+from app.ImageParser import PngWriter, PngReader;
 
 class IOException(Exception):
     pass
@@ -19,12 +19,14 @@ class BrainCopter (coderInterface):
             # výjimka -> rovnou data
             self.data = input;
 
+
+
         # data vstupu
         try:
-            with open(source, mode="r") as _file:
+            with open(source, mode="rb") as _file:
                 self.source= _file.read()
         except:
-            raise IOException("Input image file does not exists: {0}".format(input));
+            raise IOException("Input image file does not exists: {0}".format(source));
 
         self.source = PngReader(source)
 
@@ -38,6 +40,8 @@ class BrainCopter (coderInterface):
         self.outputImg = PngWriter(output, self.source.width, self.source.height, data);
 
         self.output = "Code Written to {0}".format(output);
+
+
 
 
     def code(self, data, source):
@@ -112,4 +116,5 @@ class BrainCopter (coderInterface):
         return (color[0], color[1], b);
 
     def render(self):
-        print self.output;
+        print
+        self.output;

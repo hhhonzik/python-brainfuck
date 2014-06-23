@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-import parsers;
-import coders;
+import app.parsers as parsers;
+import app.coders as coders;
 
 class ConvertController:
 
@@ -76,7 +76,8 @@ class ConvertController:
         return self;
 
     def render(self):
-        print self.output
+        print
+        self.output
         # self.instance.render();
 
 
@@ -96,7 +97,8 @@ class ConvertController:
     """
     def error(self, msg):
 
-        print "Program error: {0}".format(msg)
+        print
+        "Program error: {0}".format(msg)
         pass;
 
 

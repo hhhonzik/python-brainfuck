@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-import parsers;
+import app.parsers as parsers;
 
 class Controller:
 
@@ -29,7 +29,7 @@ class Controller:
             self.instance = self.parser( self.file );
 
         else:
-            self.error("Invalid import type: {0}".format(self.type));
+            self.error(u"Invalid import type: {0}".format(self.type));
 
 
         return self;
@@ -39,7 +39,7 @@ class Controller:
 
     def initialize(self, name):
         return {
-            'brainfuck': parsers.BrainFuck,
+            'brainfuck':   parsers.BrainFuck,
             'brainloller': parsers.BrainLoller,
             'braincopter': parsers.BrainCopter
         }.get(name);
@@ -49,7 +49,7 @@ class Controller:
     """
     def error(self, msg):
 
-        print "Program error: {0}".format(msg)
+        print(u"Program error: {{0}}".format(msg))
         pass;
 
 

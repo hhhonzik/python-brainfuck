@@ -1,4 +1,4 @@
-from controller import Controller
-from convert_controller import ConvertController
-import ImageParser
+from app.controller import Controller
+from app.convert_controller import ConvertController
+import app.ImageParser
 

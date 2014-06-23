@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 import math, sys, types;
-from interface import parserInterface;
-from brainloller import BrainLoller;
-from ..ImageParser import PngReader;
+from app.parsers.interface import parserInterface;
+from app.parsers.brainloller import BrainLoller;
+from app.ImageParser import PngReader;
 
 
 class BrainCopter (BrainLoller):

@@ -3,7 +3,8 @@
 ---
 
 Brainfuck/Brainloller/Braincopter programming language interpreter.
-Requires python2.7.
+
+Compatible with python3 and [python2.7](https://github.com/hhhonzik/python-brainfuck/tree/python2.7).
 
 ---
 

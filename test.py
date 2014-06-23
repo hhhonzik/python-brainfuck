@@ -137,8 +137,8 @@ class TestPNG(unittest.TestCase):
     def test_png_03(self):
         """načtení jednoduchého PNG-obrázku"""
         image = self.png('test_data/sachovnice.png')
-
         self.assertEqual( image.rgb, [[(255, 0, 0), (0, 255, 0), (0, 0, 255)], [(255, 255, 255), (127, 127, 127), (0, 0, 0)], [(255, 255, 0), (255, 0, 255), (0, 255, 255)]] )
+
 
 
 class TestBrainloller(unittest.TestCase):

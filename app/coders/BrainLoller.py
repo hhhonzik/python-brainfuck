@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import math, sys, types;
-from interface import coderInterface;
-from ..ImageParser import PngWriter;
+from app.coders.interface import coderInterface;
+from app.ImageParser import PngWriter;
 
 
 class InputException(Exception):
@@ -111,4 +111,5 @@ class BrainLoller(coderInterface):
         }.get(name);
 
     def render(self):
-        print self.output;
+        print
+        self.output;

@@ -71,11 +71,11 @@ class TestConverter(unittest.TestCase):
         # porovnani souboru
         # je to soubor
 
-        file1 = '';
+        file1 = b'';
         with open("./testbl.png", mode="rb") as _file:
             file1 += _file.read()
 
-        file2 = '';
+        file2 = b'';
         with open("./test_data/helloworld.bl.png", mode="rb") as _file:
             file2 += _file.read()
 
@@ -98,11 +98,11 @@ class TestConverter(unittest.TestCase):
         self.assertEqual(program.output, "BrainFuck code Written to test.bc2bl.png");
 
 
-        file1 = '';
+        file1 = b'';
         with open("./test.bc2bl.png", mode="rb") as _file:
             file1 += _file.read()
 
-        file2 = '';
+        file2 = b'';
         with open("./test_data/helloworld.bl.png", mode="rb") as _file:
             file2 += _file.read()
 
@@ -111,13 +111,14 @@ class TestConverter(unittest.TestCase):
     def test_bc_04(self):
         program = self.controller('bl2bc', 'test_data/helloworld.bl.png', 'test.bl2bc.png', 'test_data/test.bc.png');
         output = program.run();
+
         self.assertEqual(program.output, "Code Written to test.bl2bc.png");
 
-        file1 = '';
+        file1 = b'';
         with open("./test.bl2bc.png", mode="rb") as _file:
             file1 += _file.read()
 
-        file2 = '';
+        file2 = b'';
         with open("./test_data/helloworld.bc.png", mode="rb") as _file:
             file2 += _file.read()
 
@@ -129,11 +130,11 @@ class TestConverter(unittest.TestCase):
         output = program.run();
         self.assertEqual(program.output, "Code Written to test.bf2bc.png");
 
-        file1 = '';
+        file1 = b'';
         with open("./test.bf2bc.png", mode="rb") as _file:
             file1 += _file.read()
 
-        file2 = '';
+        file2 = b'';
         with open("./test_data/helloworld.bc.png", mode="rb") as _file:
             file2 += _file.read()
 

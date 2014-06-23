@@ -1,6 +1,6 @@
 #from ParserInterface import Parser
 # from Images import Images
-from brainfuck import BrainFuck;
-from brainloller import BrainLoller;
-from braincopter import BrainCopter;
-from interface import parserInterface;
+from app.parsers.brainfuck import BrainFuck;
+from app.parsers.brainloller import BrainLoller;
+from app.parsers.braincopter import BrainCopter;
+from app.parsers.interface import parserInterface;

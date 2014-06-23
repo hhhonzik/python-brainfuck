@@ -21,9 +21,12 @@ class PngReader():
 
         self.checkHeader().parse().process();
 
+        self.file.close();
+
     def checkHeader(self):
         # is PNG ?
         if self.file.read(8) != b"\x89PNG\r\n\x1a\n":
+            self.file.close();
             raise PNGWrongHeaderError("Loaded file is probably not a PNG image.")
 
         return self;
@@ -37,7 +40,7 @@ class PngReader():
             chunk['data'] = self.file.read(chunk['length']);
             chunk['crc'] = self.btoi(self.file.read(4));
 
-            if chunk['type'] == 'IEND':
+            if chunk['type'] == b'IEND':
                 break;
             else:
                 #process chunk
@@ -46,6 +49,7 @@ class PngReader():
                 if op:
                     op(chunk);
                 else:
+                    self.file.close();
                     raise PNGNotImplementedError( "Chunk {0} not compatible. Data: {1}".format(chunk["type"], chunk) );
                     break;
 
@@ -64,8 +68,8 @@ class PngReader():
 
     def chunkoperation(self, type):
         return {
-            'IHDR': self.ihdr,
-            'IDAT': self.p_idat,
+            b'IHDR': self.ihdr,
+            b'IDAT': self.p_idat,
         }.get(type);
 
     def ihdr(self, chunk):
@@ -73,6 +77,7 @@ class PngReader():
         self.height = self.btoi(chunk['data'][4:8])
         # z prednasek
         if chunk['data'][8:] != b'\x08\x02\x00\x00\x00':
+            self.file.close();
             raise PNGNotImplementedError("Loaded image has a structure that cannot be processed.")
 
 
@@ -80,7 +85,8 @@ class PngReader():
 
 
     def p_idat(self, chunk):
-        self.idat += bytes(chunk['data']);
+        # print(chunk['data']);
+        self.idat += chunk['data'];
 
     def btoi(self, bytes):
 
@@ -99,7 +105,7 @@ class PngReader():
 
 
     def getPixel(self, b):
-        v = struct.unpack("b", b)[0];
+        v = b;
         if v == -1:
             v = 255;
         return (v + 256) % 256;
@@ -109,7 +115,8 @@ class PngReader():
         i = 0
         for row in range(0, self.height):
             line = []
-            pngfilter = struct.unpack("b", self.idat[i])[0];
+            self.idat[i]
+            pngfilter = self.idat[i];
             i += 1
             for col in range(0, self.width):
                 pixel = (self.getPixel(self.idat[i]), self.getPixel(self.idat[i + 1]), self.getPixel(self.idat[i + 2]));
@@ -229,11 +236,8 @@ class PngWriter():
 
         return self;
     def itob(self, x, unsigned=True ):
-        # return struct.pack('>BH', x >> 16, x & 0xFFFF);
-        if unsigned:
-            return struct.pack('>I', x)
-        else:
-            return struct.pack('>i', x)
+        return x.to_bytes(4, 'big');
+
     def writeData(self, colors):
         chunk = {x: '' for x in ['length', 'type', 'data', 'crc']}
         chunk['type'] = b"IDAT";

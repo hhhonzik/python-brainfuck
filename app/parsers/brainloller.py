@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 import math, sys, types;
-from interface import parserInterface;
-from brainfuck import BrainFuck;
-from ..ImageParser import PngReader;
+from app.parsers.interface import parserInterface;
+from app.parsers.brainfuck import BrainFuck;
+from app.ImageParser import PngReader;
 
 class BrainLoller (parserInterface):
     """A class to process brainloller language."""
@@ -96,4 +96,4 @@ class BrainLoller (parserInterface):
         return x, y
 
     def render(self):
-        print self.program.output;
+        print(self.program.output)

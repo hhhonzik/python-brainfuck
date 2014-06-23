@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 import math, sys, types;
-from interface import parserInterface;
+from app.parsers.interface import parserInterface;
 
 
 
@@ -25,6 +25,8 @@ class BrainFuck (parserInterface):
 
         # a) paměť výstupu
         self.output = ''
+
+
 
 
         # !?
@@ -152,5 +154,5 @@ class BrainFuck (parserInterface):
     # output
     #
     def render(self):
-        print self.output;
+        print(self.output)
 
